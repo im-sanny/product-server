@@ -30,10 +30,22 @@ async function run() {
     const productCollection =client.db('productHub').collection('products')
 
     // get all product data from db  
-    app.get('/products', async(req, res) => {
-      const result = await productCollection.find().toArray()
-      res.send(result)
-    })
+    app.get('/products', async (req, res) => {
+      const page = parseInt(req.query.page) || 1; 
+      const limit = parseInt(req.query.limit) || 10; 
+      const skip = (page - 1) * limit;
+    
+      const totalProducts = await productCollection.countDocuments();
+      const products = await productCollection.find().skip(skip).limit(limit).toArray();
+    
+      res.send({
+        products,
+        currentPage: page,
+        totalPages: Math.ceil(totalProducts / limit),
+        totalProducts
+      });
+    });
+    
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
