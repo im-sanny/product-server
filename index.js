@@ -10,6 +10,7 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 
@@ -32,9 +33,7 @@ async function run() {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 10;
       const skip = (page - 1) * limit;
-
       const { search, brand, category, minPrice, maxPrice, sort } = req.query;
-
       let query = {};
       let sortOption = {};
 
