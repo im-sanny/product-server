@@ -97,7 +97,6 @@ async function run() {
           .send({ message: "Error fetching products", error: error.message });
       }
     });
-
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
@@ -105,6 +104,7 @@ async function run() {
   } finally {
   }
 }
+
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
