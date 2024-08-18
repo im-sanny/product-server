@@ -2,9 +2,8 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const port = process.env.PORT || 9000;
-
 const app = express();
+const port = process.env.PORT || 9000;
 
 const corsOptions = {
   origin: ["http://localhost:5173", "https://producthub-13705.web.app"],
@@ -107,7 +106,6 @@ async function run() {
   } finally {
   }
 }
-
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
